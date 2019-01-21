@@ -33,7 +33,7 @@ public class Main {
 
 		LOG.trace("{}", number.stream().filter(Objects::nonNull).reduce((n1, n2) -> n1 + n2).orElse(null));
 		if (LOG.isTraceEnabled()) {
-			LOG.trace(number.stream().filter(Objects::nonNull).map(i -> i.toString()).reduce((n1, n2) -> n1 + " " + n2)
+			LOG.trace(number.stream().filter(Objects::nonNull).map(Objects::toString).reduce((n1, n2) -> n1 + " " + n2)
 					.orElse(null));
 		}
 

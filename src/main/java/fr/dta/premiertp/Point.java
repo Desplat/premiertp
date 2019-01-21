@@ -5,13 +5,13 @@ public class Point {
 	private int x;
 	private int y;
 
-	private final int INIT_X = 25;
-	private final int INIT_Y = 25;
+	private static final int INITX = 25;
+	private static final int INITY = 25;
 
 	public Point() {
 
-		x = INIT_X;
-		y = INIT_Y;
+		x = INITX;
+		y = INITY;
 	}
 
 	public Point(int abs, int ord) {
@@ -35,8 +35,6 @@ public class Point {
 		return "[" + x + ";" + y + "]";
 	}
 
-	
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -48,27 +46,26 @@ public class Point {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		Point other = (Point) obj;
-		if (x != other.x)
-			return false;
-		if (y != other.y)
-			return false;
-		return true;
+		return (x != other.x);
 	}
 
 	public double distance(Point pt) {
-		
-		return Math.sqrt( Math.pow(pt.getX() - (double)this.x, 2) + Math.pow(pt.getY() - (double)this.y, 2) );
+
+		return Math.sqrt(Math.pow(pt.getX() - (double) this.x, 2) + Math.pow(pt.getY() - (double) this.y, 2));
 	}
-	
+
 	public double distanceOrigin() {
-		
-		return Math.sqrt( Math.pow(INIT_X - (double)this.x, 2) + Math.pow(INIT_Y - (double)this.y, 2) );
+
+		return Math.sqrt(Math.pow(INITX - (double) this.x, 2) + Math.pow(INITY - (double) this.y, 2));
 	}
 }

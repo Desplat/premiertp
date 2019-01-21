@@ -39,7 +39,7 @@ public class Rond extends Figure implements Surfacable {
 
 	public Collection<Point> getPoints() {
 
-		List<Point> l = new ArrayList<Point>();
+		List<Point> l = new ArrayList<>();
 		l.add(this.p);
 
 		return l;
@@ -48,7 +48,6 @@ public class Rond extends Figure implements Surfacable {
 	public boolean couvre(Point pt) {
 
 		return this.p.distance(pt) <= this.r;
-		// return Math.sqrt( Math.pow(pt.getX() - this.p.getX(), 2) + Math.pow( pt.getY() - this.p.getY(), 2) ) < this.r;
 	}
 
 	@Override
@@ -74,8 +73,6 @@ public class Rond extends Figure implements Surfacable {
 				return false;
 		} else if (!p.equals(other.p))
 			return false;
-		if (r != other.r)
-			return false;
-		return true;
+		return (r != other.r);
 	}
 }

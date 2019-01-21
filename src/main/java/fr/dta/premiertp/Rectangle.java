@@ -19,7 +19,7 @@ public class Rectangle extends Figure implements Surfacable {
 		pointHautDroit = new Point(pointBasGauche.getX() + x, pointBasGauche.getY() + y);
 		this.couleur = Couleur.getCouleurDefaut();
 	}
-	
+
 	public Rectangle(Point point, int x, int y, Couleur c) {
 
 		this(point, x, y);
@@ -39,12 +39,13 @@ public class Rectangle extends Figure implements Surfacable {
 	}
 
 	public Point getPointHautDroit() {
-		return pointBasDroit;
+		return pointHautDroit;
 	}
 
 	@Override
 	public String toString() {
-		return "[" + getType() + " " + pointBasGauche + pointBasDroit + pointHautGauche + pointHautDroit + ", " + this.couleur + "]";
+		return "[" + getType() + " " + pointBasGauche + pointBasDroit + pointHautGauche + pointHautDroit + ", "
+				+ this.couleur + "]";
 	}
 
 	protected String getType() {
@@ -53,14 +54,14 @@ public class Rectangle extends Figure implements Surfacable {
 	}
 
 	public double surface() {
-		return Math.abs((double)pointHautDroit.getX() - (double)pointBasGauche.getX())
-				* Math.abs((double)pointHautDroit.getY() - (double)pointBasGauche.getY());
+		return Math.abs((double) pointHautDroit.getX() - (double) pointBasGauche.getX())
+				* Math.abs((double) pointHautDroit.getY() - (double) pointBasGauche.getY());
 
 	}
 
 	public Collection<Point> getPoints() {
 
-		List<Point> l = new ArrayList<Point>();
+		List<Point> l = new ArrayList<>();
 		l.add(this.pointBasGauche);
 		l.add(this.pointBasDroit);
 		l.add(this.pointHautGauche);
@@ -99,16 +100,6 @@ public class Rectangle extends Figure implements Surfacable {
 			if (other.pointBasDroit != null)
 				return false;
 		} else if (!pointBasDroit.equals(other.pointBasDroit))
-			return false;
-		if (pointBasGauche == null) {
-			if (other.pointBasGauche != null)
-				return false;
-		} else if (!pointBasGauche.equals(other.pointBasGauche))
-			return false;
-		if (pointHautDroit == null) {
-			if (other.pointHautDroit != null)
-				return false;
-		} else if (!pointHautDroit.equals(other.pointHautDroit))
 			return false;
 		if (pointHautGauche == null) {
 			if (other.pointHautGauche != null)

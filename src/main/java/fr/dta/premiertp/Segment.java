@@ -38,7 +38,7 @@ public class Segment extends Figure {
 
 	public Collection<Point> getPoints() {
 		
-		List<Point> l = new ArrayList<Point>();
+		List<Point> l = new ArrayList<>();
 		l.add(this.debut);
 		l.add(this.fin);
 		
