@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +15,7 @@ import org.slf4j.LoggerFactory;
 public class Main {
 
 	private static final Logger LOG = LoggerFactory.getLogger(Main.class);
-	
+
 	public static void main(String[] args) {
 
 		List<Integer> number = new ArrayList<>();
@@ -28,11 +29,13 @@ public class Main {
 		number.add(10);
 		number.add(100);
 
-		number.stream().filter(o -> o == 10).forEach(System.out::println);
-		
-		LOG.trace("{}", number.stream().filter(i -> i != null).reduce((n1, n2) -> n1 + n2).orElse(null));
-		LOG.trace(number.stream().filter(i -> i != null).map(i -> i.toString())
-				.reduce((n1, n2) -> n1 + " " + n2).orElse(null));
+		number.stream().filter(o -> o == 10).forEach(n -> LOG.trace("{}", n));
+
+		LOG.trace("{}", number.stream().filter(Objects::nonNull).reduce((n1, n2) -> n1 + n2).orElse(null));
+		if (LOG.isTraceEnabled()) {
+			LOG.trace(number.stream().filter(Objects::nonNull).map(i -> i.toString()).reduce((n1, n2) -> n1 + " " + n2)
+					.orElse(null));
+		}
 
 		LocalTime time = LocalTime.now();
 		LocalDate quatre = LocalDate.now();
@@ -139,10 +142,12 @@ public class Main {
 
 		Collection<Figure> ss = FigureUtil.trieProcheOrigine(dessin);
 
-		for (Figure fbs : ss) {
-			// System.out.println("surface : " + ((Surfacable) fbs).surface());
-			LOG.trace("Figure : " + fbs.toString());
-			fbs.affiche();
+		if (LOG.isTraceEnabled()) {
+			for (Figure fbs : ss) {
+				// System.out.println("surface : " + ((Surfacable) fbs).surface());
+				LOG.trace("Figure : " + fbs.toString());
+				fbs.affiche();
+			}
 		}
 
 	}
