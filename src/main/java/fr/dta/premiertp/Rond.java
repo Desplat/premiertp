@@ -51,6 +51,16 @@ public class Rond extends Figure implements Surfacable {
 		// return Math.sqrt( Math.pow(pt.getX() - this.p.getX(), 2) + Math.pow( pt.getY() - this.p.getY(), 2) ) < this.r;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((p == null) ? 0 : p.hashCode());
+		result = prime * result + r;
+		return result;
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -65,11 +75,6 @@ public class Rond extends Figure implements Surfacable {
 		} else if (!p.equals(other.p))
 			return false;
 		if (r != other.r)
-			return false;
-		if (couleur == null) {
-			if (other.couleur != null)
-				return false;
-		} else if (!couleur.equals(other.couleur))
 			return false;
 		return true;
 	}

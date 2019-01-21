@@ -14,6 +14,8 @@ public abstract class Figure implements Comparable<Figure>{
 	public abstract Collection<Point> getPoints();
 	public abstract boolean couvre(Point pt);
 	public abstract boolean equals(Object obj);
+	public abstract int hashCode();
+	
 	
 	private static int cle = 0;
 

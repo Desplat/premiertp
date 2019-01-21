@@ -137,10 +137,10 @@ public class FigureUtil {
 	}
 
 	public static Collection<Figure> trieProcheOrigine(Dessin dessin) {
-		
+
 		List<Figure> figures = new ArrayList<>(dessin.getFigures());
 		return figures.stream().sorted().collect(Collectors.toList());
-		//Collections.sort(figures);
+		// Collections.sort(figures);
 	}
 
 	public static Collection<Figure> triSurface(Dessin dessin) {
@@ -221,7 +221,9 @@ public class FigureUtil {
 			str.append(fig.toString() + System.lineSeparator());
 		}
 
-		str.append("====================================================================================================" + System.lineSeparator());
+		str.append(
+				"===================================================================================================="
+						+ System.lineSeparator());
 
 		char[][] tab = new char[100][100];
 
@@ -249,40 +251,42 @@ public class FigureUtil {
 	public static void sauvegarde(Dessin dessin) throws IOException {
 
 		File fichier = new File("C:\\Users\\formation\\Desktop\\TP10\\dessin_save.txt");
-		FileWriter writer = new FileWriter(fichier);
-		// BufferedWriter bf = new BufferedWriter(writer);
-		// PrintWriter pw = new PrintWriter(bf);
+		try (FileWriter writer = new FileWriter(fichier)) {
+			// BufferedWriter bf = new BufferedWriter(writer);
+			// PrintWriter pw = new PrintWriter(bf);
 
-		writer.write(imprime(dessin));
-		writer.close();
+			writer.write(imprime(dessin));
+			writer.close();
+		}
 	}
 
 	public static void charge() throws IOException {
 
 		File fichier = new File("C:\\Users\\formation\\Desktop\\TP10\\dessin_save.txt");
 		FileReader reader = new FileReader(fichier);
-		BufferedReader bf = new BufferedReader(reader);
+		try (BufferedReader bf = new BufferedReader(reader)) {
 
-		Optional<String> ligne;
-		boolean findSeparator = false;
-		while (true) {
+			Optional<String> ligne;
+			boolean findSeparator = false;
+			while (true) {
 
-			ligne = Optional.ofNullable(bf.readLine());
+				ligne = Optional.ofNullable(bf.readLine());
 
-			if (!ligne.isPresent())
-				break;
+				if (!ligne.isPresent())
+					break;
 
-			if (ligne.get().startsWith("=")) {
-				findSeparator = true;
-				continue;
-			}
-			if (findSeparator) {
-				for (int i = 0; i < 99; i++) {
-					System.out.print(ligne.get().charAt(i));
+				if (ligne.get().startsWith("=")) {
+					findSeparator = true;
+					continue;
 				}
-				System.out.println("");
+				if (findSeparator) {
+					for (int i = 0; i < 99; i++) {
+						System.out.print(ligne.get().charAt(i));
+					}
+					System.out.println("");
+				}
 			}
+			bf.close();
 		}
-		bf.close();
 	}
 }

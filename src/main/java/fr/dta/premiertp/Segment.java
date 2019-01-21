@@ -51,6 +51,16 @@ public class Segment extends Figure {
 				|| pt.getY() >= this.debut.getY() && pt.getY() <= fin.getY() && pt.getX() == this.debut.getX());
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((debut == null) ? 0 : debut.hashCode());
+		result = prime * result + ((fin == null) ? 0 : fin.hashCode());
+		return result;
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -68,11 +78,6 @@ public class Segment extends Figure {
 			if (other.fin != null)
 				return false;
 		} else if (!fin.equals(other.fin))
-			return false;
-		if (couleur == null) {
-			if (other.couleur != null)
-				return false;
-		} else if (!couleur.equals(other.couleur))
 			return false;
 		return true;
 	}

@@ -35,6 +35,18 @@ public class Point {
 		return "[" + x + ";" + y + "]";
 	}
 
+	
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + x;
+		result = prime * result + y;
+		return result;
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -49,14 +61,14 @@ public class Point {
 			return false;
 		return true;
 	}
-	
+
 	public double distance(Point pt) {
 		
-		return Math.sqrt( Math.pow(pt.getX() - this.x, 2) + Math.pow(pt.getY() - this.y, 2) );
+		return Math.sqrt( Math.pow(pt.getX() - (double)this.x, 2) + Math.pow(pt.getY() - (double)this.y, 2) );
 	}
 	
 	public double distanceOrigin() {
 		
-		return Math.sqrt( Math.pow(INIT_X - this.x, 2) + Math.pow(INIT_Y - this.y, 2) );
+		return Math.sqrt( Math.pow(INIT_X - (double)this.x, 2) + Math.pow(INIT_Y - (double)this.y, 2) );
 	}
 }

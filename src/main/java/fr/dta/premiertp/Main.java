@@ -8,8 +8,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class Main {
 
+	private static final Logger LOG = LoggerFactory.getLogger(Main.class);
+	
 	public static void main(String[] args) {
 
 		List<Integer> number = new ArrayList<>();
@@ -25,8 +30,8 @@ public class Main {
 
 		number.stream().filter(o -> o == 10).forEach(System.out::println);
 		
-		System.out.println(number.stream().filter(i -> i != null).reduce((n1, n2) -> n1 + n2).orElse(null));
-		System.out.println(number.stream().filter(i -> i != null).map(i -> i.toString())
+		LOG.trace("{}", number.stream().filter(i -> i != null).reduce((n1, n2) -> n1 + n2).orElse(null));
+		LOG.trace(number.stream().filter(i -> i != null).map(i -> i.toString())
 				.reduce((n1, n2) -> n1 + " " + n2).orElse(null));
 
 		LocalTime time = LocalTime.now();
@@ -41,9 +46,9 @@ public class Main {
 		String date = noel.format(formatDate);
 		String date1 = quatre.format(formatDate);
 
-		System.out.println(heure);
-		System.out.println(date);
-		System.out.println(date1);
+		LOG.trace(heure);
+		LOG.trace(date);
+		LOG.trace(date1);
 
 		/*
 		 * ############################################################# Le point
@@ -122,21 +127,21 @@ public class Main {
 			FigureUtil.charge();
 
 		} catch (IOException e) {
-			System.out.println(e.getMessage());
+			LOG.trace(e.getMessage());
 		}
 
 		try {
 			FigureUtil.impression();
 		} catch (ImpressionHorsLimiteException e) {
 
-			System.out.println("Exception : " + e.getMessage());
+			LOG.trace("Exception : " + e.getMessage());
 		}
 
 		Collection<Figure> ss = FigureUtil.trieProcheOrigine(dessin);
 
 		for (Figure fbs : ss) {
 			// System.out.println("surface : " + ((Surfacable) fbs).surface());
-			System.out.println("Figure : " + fbs.toString());
+			LOG.trace("Figure : " + fbs.toString());
 			fbs.affiche();
 		}
 
