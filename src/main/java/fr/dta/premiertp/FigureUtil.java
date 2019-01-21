@@ -15,12 +15,24 @@ import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class FigureUtil {
 
 	private static final int MIN = 0;
 	private static final int MAX = 99;
 
-	private static Map<String, Figure> map = new HashMap<String, Figure>();
+	private static String nomFichier = "C:\\Users\\formation\\Desktop\\TP10\\dessin_save.txt";
+
+	private static Map<String, Figure> map = new HashMap<>();
+
+	private static final Logger LOG = LoggerFactory.getLogger(Main.class);
+
+	private FigureUtil() {
+
+		throw new IllegalStateException("Utility class");
+	}
 
 	private static Point getRandomPoint() {
 
@@ -98,7 +110,7 @@ public class FigureUtil {
 
 	public static Collection<Point> getPoints(Figure... f) {
 
-		List<Point> l = new ArrayList<Point>();
+		List<Point> l = new ArrayList<>();
 
 		for (int i = 0; i < f.length; i++) {
 
@@ -110,7 +122,7 @@ public class FigureUtil {
 
 	public static Collection<Figure> genere(int x) {
 
-		List<Figure> l = new ArrayList<Figure>();
+		List<Figure> l = new ArrayList<>();
 
 		for (int i = 0; i < x; i++) {
 
@@ -140,7 +152,6 @@ public class FigureUtil {
 
 		List<Figure> figures = new ArrayList<>(dessin.getFigures());
 		return figures.stream().sorted().collect(Collectors.toList());
-		// Collections.sort(figures);
 	}
 
 	public static Collection<Figure> triSurface(Dessin dessin) {
@@ -155,28 +166,21 @@ public class FigureUtil {
 				return -1;
 			}
 			return 0;
-		}).collect(Collectors.toList());
-
-//		List<Figure> figures = dessin.getFigures().stream().filter(f -> f instanceof Surfacable)
-//				.collect(Collectors.toList());
-//
-//		Collections.sort(figures, new Comparator<Figure>() {
-//			@Override
-//			public int compare(Figure o1, Figure o2) {
-//				Surfacable s1 = (Surfacable) o1;
-//				Surfacable s2 = (Surfacable) o2;
-//				if (s1.surface() > s2.surface()) {
-//					return 1;
-//				}
-//				if (s1.surface() < s2.surface()) {
-//					return -1;
-//				}
-//				return 0;
-//			}
-//
-//		});
-//
-//		return figures;
+		}).collect(Collectors.toList()); /*
+											 * List<Figure> figures = dessin.getFigures().stream().filter(f -> f
+											 * instanceof Surfacable) .collect(Collectors.toList());
+											 * 
+											 * Collections.sort(figures, new Comparator<Figure>() {
+											 * 
+											 * @Override public int compare(Figure o1, Figure o2) { Surfacable s1 =
+											 * (Surfacable) o1; Surfacable s2 = (Surfacable) o2; if (s1.surface() >
+											 * s2.surface()) { return 1; } if (s1.surface() < s2.surface()) { return -1;
+											 * } return 0; }
+											 * 
+											 * });
+											 * 
+											 * return figures;
+											 */
 	}
 
 	public static Figure get(String id) {
@@ -186,7 +190,7 @@ public class FigureUtil {
 
 	public static void afficheMap() {
 
-		System.out.println(FigureUtil.map);
+		LOG.trace("{}", FigureUtil.map);
 	}
 
 	public static void impression() throws ImpressionHorsLimiteException {
@@ -206,9 +210,10 @@ public class FigureUtil {
 	public static void stockTab(Figure fig, char[][] tab) {
 
 		for (Point pt : fig.getPoints()) {
-			if (!(pt.getX() < MIN || pt.getX() > MAX || pt.getY() < MIN || pt.getY() > MAX))
+			if (!(pt.getX() < MIN || pt.getX() > MAX || pt.getY() < MIN || pt.getY() > MAX)) {
 
 				tab[pt.getX()][pt.getY()] = fig.getCouleur().getCode();
+			}
 		}
 	}
 
@@ -250,19 +255,17 @@ public class FigureUtil {
 
 	public static void sauvegarde(Dessin dessin) throws IOException {
 
-		File fichier = new File("C:\\Users\\formation\\Desktop\\TP10\\dessin_save.txt");
+		File fichier = new File(nomFichier);
 		try (FileWriter writer = new FileWriter(fichier)) {
-			// BufferedWriter bf = new BufferedWriter(writer);
-			// PrintWriter pw = new PrintWriter(bf);
 
-			writer.write(imprime(dessin));
-			writer.close();
+			writer.write(imprime(dessin)); // BufferedWriter bf = new BufferedWriter(writer); // PrintWriter pw = new
+											// PrintWriter(bf);
 		}
 	}
 
 	public static void charge() throws IOException {
 
-		File fichier = new File("C:\\Users\\formation\\Desktop\\TP10\\dessin_save.txt");
+		File fichier = new File(nomFichier);
 		FileReader reader = new FileReader(fichier);
 		try (BufferedReader bf = new BufferedReader(reader)) {
 
@@ -272,21 +275,20 @@ public class FigureUtil {
 
 				ligne = Optional.ofNullable(bf.readLine());
 
-				if (!ligne.isPresent())
+				if (!ligne.isPresent()) {
 					break;
+				}
 
 				if (ligne.get().startsWith("=")) {
 					findSeparator = true;
-					continue;
 				}
 				if (findSeparator) {
 					for (int i = 0; i < 99; i++) {
-						System.out.print(ligne.get().charAt(i));
+						LOG.trace("{}", ligne.get().charAt(i));
 					}
-					System.out.println("");
+					LOG.trace("");
 				}
 			}
-			bf.close();
 		}
 	}
 }

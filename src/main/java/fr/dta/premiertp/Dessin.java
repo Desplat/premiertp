@@ -8,7 +8,7 @@ public class Dessin {
 	Collection<Figure> liste;
 	
 	public Dessin() {
-		this.liste = new ArrayList<Figure>();
+		this.liste = new ArrayList<>();
 	}
 	
 	public boolean addFigure(Figure f) {

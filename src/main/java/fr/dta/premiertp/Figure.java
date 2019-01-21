@@ -5,7 +5,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public abstract class Figure implements Comparable<Figure>{
+	
+	private static final Logger LOG = LoggerFactory.getLogger(Main.class);
 	
 	protected Couleur couleur;
 	
@@ -21,7 +26,7 @@ public abstract class Figure implements Comparable<Figure>{
 
 	public void affiche() {
 		
-		System.out.println(toString());
+		LOG.trace(toString());
 	}
 	
 	public double distanceOrigin() {

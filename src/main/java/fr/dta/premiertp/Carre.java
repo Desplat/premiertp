@@ -14,19 +14,9 @@ public class Carre extends Rectangle {
 		
 	}
 
+	@Override
 	protected String getType() {
 
 		return "CARRE";
 	}
-
-	/*
-	 * @Override public String toString() {
-	 * 
-	 * return "CARRE [" + getPointBasGauche() + "][" + getPointBasDroit() + "][" +
-	 * getPointHautGauche() + "][" + getPointHautDroit() + "]"; }
-	 * 
-	 * public void affiche() {
-	 * 
-	 * System.out.println(toString()); }
-	 */
 }
